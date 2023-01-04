@@ -1,4 +1,4 @@
-from DataLoader import get_values
+from src.DataLoader import get_values
 
 class Card:
     def __init__(self, suit, rank):
