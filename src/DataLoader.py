@@ -8,5 +8,6 @@ values = {"Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eig
 
 player_options = ("Hit", "Stand", "Double down", "Split", "Surrender")
 
+
 def get_values(rank):
     return values[rank]
