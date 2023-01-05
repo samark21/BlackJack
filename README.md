@@ -3,7 +3,7 @@ Creating a Blackjack game from scratch using Python
 
 The game consists of a single player vs. the dealer, and only a single deck is used.
 
-I have followed the basic rules listed [here](https://www.cs.mcgill.ca/~rwest/wikispeedia/wpcd/wp/b/Blackjack.htm#:~:text=Rules,king)%20are%20also%20worth%2010. "Blackjack rules").
+I have followed the basic rules listed [here](https://www.cs.mcgill.ca/~rwest/wikispeedia/wpcd/wp/b/Blackjack.htm#:~:text=Rules,king "Blackjack rules").
 
 ***
 The player can:
