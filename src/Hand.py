@@ -25,4 +25,4 @@ class Hand:
         for card in self.current_hand:
             self.cards_string += str(card) + " | "
 
-        return f"Hand: {self.cards_string} Total: {self.total_sum}"
+        return f"Hand: {self.cards_string} Total: {self.total_value()}"
