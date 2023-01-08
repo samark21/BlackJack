@@ -99,7 +99,8 @@ def set_bet(balance):
             return int(bet)
         else:
             print("Sorry you don't have that much money!\nPlease set a smaller bet.")
-            set_bet(balance)
+            bet = set_bet(balance)
+            return bet
 
 
 def check_bet(balance, bet):
@@ -117,29 +118,29 @@ def check_bet(balance, bet):
 
 def check_game_status(player_h, dealer_h, dealer_turn=False):
     game_status = ""
-    if not dealer_turn:
-        if player_h.total_sum == 21 and dealer_h.total_sum == 21:
-            game_status = "Push"
-        elif dealer_h.total_sum == 21:
-            game_status = "Bust"
 
-    else:
-        if player_h.total_sum == 21 and dealer_h.total_sum == 21:
-            game_status = "Push"
-        elif dealer_h.total_sum == 21:
-            game_status = "Bust"
-        elif player_h == 21:
+    if player_h.total_sum == 21 and dealer_h.total_sum == 21:
+        game_status = "Push"
+    elif dealer_h.total_sum == 21:
+        game_status = "Bust"
+    elif player_h.total_sum > 21:
+        game_status = "Bust"
+
+    if dealer_turn:
+        # if player_h.total_sum == 21 and dealer_h.total_sum == 21:
+        #     game_status = "Push"
+        # elif dealer_h.total_sum == 21:
+        #     game_status = "Bust"
+        if player_h.total_sum == 21:
             game_status = "Win"
-        elif player_h > 21:
-            game_status = "Bust"
-        elif player_h < 21:
-            if player_h == dealer_h:
+        elif player_h.total_sum < 21:
+            if player_h.total_sum == dealer_h.total_sum:
                 game_status = "Push"
-            elif player_h < dealer_h < 21:
+            elif player_h.total_sum < dealer_h.total_sum < 21:
                 game_status = "Bust"
-            elif dealer_h > 21:
+            elif dealer_h.total_sum > 21:
                 game_status = "Win"
-            elif dealer_h < player_h < 21:
+            elif dealer_h.total_sum < player_h.total_sum < 21:
                 game_status = "Win"
 
     return game_status

@@ -47,6 +47,15 @@ while game_on:
                 if player_move == "Hit":
                     player_hand.add_card(my_deck.deal_one_card())
                 elif player_move == "Stand":
+                    # dealer playing now
+                    print("\n***** Dealer reveals his cards *****")
+                    print_hands_with_dealer(player_hand, dealer_hand)
+
+                    while dealer_hand.total_sum < player_hand.total_sum and dealer_hand.total_sum < 17:
+                        # for card in my_deck.all_cards:
+                        #     print(card)
+                        dealer_hand.add_card(my_deck.deal_one_card())
+                        print_hands_with_dealer(player_hand, dealer_hand)
                     in_round = False
                 elif player_move == "Double down":
                     print("Option is not available yet")
@@ -55,9 +64,26 @@ while game_on:
                 elif player_move == "Surrender":
                     print("Option is not available yet")
 
+            else:
+                # if game status is not "" meaning the player has lost.
+                # and there's no need to let the player play more rounds nor the dealer.
+                in_round = False
+
             if not in_round:
-                pass
-                # dealer's turn
-                print("Dealer's Turn")
-                print("Checking for winner")
                 # check for winner
+                if game_status == "":
+                    game_status = check_game_status(player_hand, dealer_hand, True)
+
+                if game_status == "Win":
+                    print("Congratulations")
+                    player_balance = win_money(player_balance, player_bet)
+                elif game_status == "Bust":
+                    print("Oh oh! You lost!!")
+                    player_balance = lose_money(player_balance, player_bet)
+                elif game_status == "Push":
+                    print("Push!! \nGame over\n")
+                    # nothing happens to money game ends
+                else:
+                    print("Error!")
+
+        print_player_balance(player_balance)
