@@ -70,6 +70,7 @@ while game_on:
                         print("Sorry you can't double down now.")
 
                 elif player_move == "Split":
+                    print("Making sure new branch is on git")
                     print("Option is not available yet")
 
                 elif player_move == "Surrender":
@@ -100,6 +101,7 @@ while game_on:
                 if game_status == "Win":
                     print("Congratulations")
                     player_balance = win_money(player_balance, player_bet)
+
                 elif game_status == "Bust":
                     if surrendered:
                         print("Player surrendered!!")
@@ -108,9 +110,11 @@ while game_on:
                     else:
                         print("Oh oh! You lost!!")
                         player_balance = lose_money(player_balance, player_bet)
+
                 elif game_status == "Push":
                     print("Push!! \nGame over\n")
                     # nothing happens to money game ends
+
                 else:
                     print("Error!")
 
