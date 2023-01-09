@@ -13,6 +13,7 @@ while game_on:
     in_round = False
     game_status = ""
     first_round = True
+    surrendered = False
 
     # Start Game
     yes_no_answer = get_player_yes_no()
@@ -43,7 +44,7 @@ while game_on:
 
             game_status = check_game_status(player_hand, dealer_hand)
 
-            if game_status not in game_results:
+            if game_status not in game_results and player_hand.total_sum != 21:
                 player_move = get_player_move()
 
                 if player_move == "Hit":
@@ -57,7 +58,6 @@ while game_on:
 
                 elif player_move == "Double down":
                     if first_round:
-                        print("Doubling DOWNNNNN")
                         new_player_bet = double_bet(player_balance, player_bet)
 
                         if new_player_bet > player_bet:
@@ -73,7 +73,12 @@ while game_on:
                     print("Option is not available yet")
 
                 elif player_move == "Surrender":
-                    print("Option is not available yet")
+                    if first_round:
+                        surrendered = True
+                        game_status = "Bust"
+                        in_round = False
+                    else:
+                        print("Sorry you can't surrender now.")
 
             else:
                 # if game status is not "" meaning the player has lost.
@@ -96,8 +101,13 @@ while game_on:
                     print("Congratulations")
                     player_balance = win_money(player_balance, player_bet)
                 elif game_status == "Bust":
-                    print("Oh oh! You lost!!")
-                    player_balance = lose_money(player_balance, player_bet)
+                    if surrendered:
+                        print("Player surrendered!!")
+                        player_bet = int(player_bet/2)
+                        player_balance = lose_money(player_balance, player_bet)
+                    else:
+                        print("Oh oh! You lost!!")
+                        player_balance = lose_money(player_balance, player_bet)
                 elif game_status == "Push":
                     print("Push!! \nGame over\n")
                     # nothing happens to money game ends
