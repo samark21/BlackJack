@@ -116,6 +116,15 @@ def check_bet(balance, bet):
         return False
 
 
+def double_bet(balance, bet):
+    valid = check_bet(balance, bet*2)
+    if valid:
+        return bet*2
+    else:
+        print("Sorry you don't have enough money to double down!\nThe bet stays the same.")
+        return bet
+
+
 def check_game_status(player_h, dealer_h, dealer_turn=False):
     game_status = ""
 
@@ -127,10 +136,6 @@ def check_game_status(player_h, dealer_h, dealer_turn=False):
         game_status = "Bust"
 
     if dealer_turn:
-        # if player_h.total_sum == 21 and dealer_h.total_sum == 21:
-        #     game_status = "Push"
-        # elif dealer_h.total_sum == 21:
-        #     game_status = "Bust"
         if player_h.total_sum == 21:
             game_status = "Win"
         elif player_h.total_sum < 21:

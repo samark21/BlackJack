@@ -12,6 +12,7 @@ print_player_balance(player_balance)
 while game_on:
     in_round = False
     game_status = ""
+    first_round = True
 
     # Start Game
     yes_no_answer = get_player_yes_no()
@@ -44,23 +45,33 @@ while game_on:
 
             if game_status not in game_results:
                 player_move = get_player_move()
+
                 if player_move == "Hit":
                     player_hand.add_card(my_deck.deal_one_card())
+
                 elif player_move == "Stand":
                     # dealer playing now
                     print("\n***** Dealer reveals his cards *****")
                     print_hands_with_dealer(player_hand, dealer_hand)
-
-                    while dealer_hand.total_sum < player_hand.total_sum and dealer_hand.total_sum < 17:
-                        # for card in my_deck.all_cards:
-                        #     print(card)
-                        dealer_hand.add_card(my_deck.deal_one_card())
-                        print_hands_with_dealer(player_hand, dealer_hand)
                     in_round = False
+
                 elif player_move == "Double down":
-                    print("Option is not available yet")
+                    if first_round:
+                        print("Doubling DOWNNNNN")
+                        new_player_bet = double_bet(player_balance, player_bet)
+
+                        if new_player_bet > player_bet:
+                            player_bet = new_player_bet
+                            player_hand.add_card((my_deck.deal_one_card()))
+                            print_current_hands(player_hand, dealer_hand)
+                            in_round = False
+
+                    else:
+                        print("Sorry you can't double down now.")
+
                 elif player_move == "Split":
                     print("Option is not available yet")
+
                 elif player_move == "Surrender":
                     print("Option is not available yet")
 
@@ -72,6 +83,13 @@ while game_on:
             if not in_round:
                 # check for winner
                 if game_status == "":
+                    # dealer plays and results are calculated.
+                    while dealer_hand.total_sum < player_hand.total_sum and dealer_hand.total_sum < 17:
+                        # for card in my_deck.all_cards:
+                        #     print(card)
+                        dealer_hand.add_card(my_deck.deal_one_card())
+                        print_hands_with_dealer(player_hand, dealer_hand)
+
                     game_status = check_game_status(player_hand, dealer_hand, True)
 
                 if game_status == "Win":
@@ -85,5 +103,7 @@ while game_on:
                     # nothing happens to money game ends
                 else:
                     print("Error!")
+
+            first_round = False
 
         print_player_balance(player_balance)
